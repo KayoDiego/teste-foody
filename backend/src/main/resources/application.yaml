@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: foody-tracking
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:./data/foody.db
+    hikari:
+      maximum-pool-size: 1
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:foody-super-secret-key-that-must-be-at-least-256-bits-long-for-hs256}
+    expiration-ms: 86400000
+
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
