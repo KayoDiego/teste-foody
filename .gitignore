@@ -1,0 +1,27 @@
+# Build
+backend/target/
+frontend/dist/
+frontend/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Database
+backend/data/
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Maven wrapper download cache (optional)
+.backend/
+
+# Environment
+.env
+.env.local
