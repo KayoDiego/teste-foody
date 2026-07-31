@@ -1,6 +1,12 @@
 import { useState, type FormEvent } from 'react'
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+} from '../lib/validation'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Logo } from '../components/Logo'
+import { PasswordInput } from '../components/PasswordInput'
 import { useAuth } from '../context/AuthContext'
 
 export function RegisterPage() {
@@ -19,9 +25,28 @@ export function RegisterPage() {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
     setError('')
+
+    const nameError = validateName(name)
+    if (nameError) {
+      setError(nameError)
+      return
+    }
+
+    const emailError = validateEmail(email)
+    if (emailError) {
+      setError(emailError)
+      return
+    }
+
+    const passwordError = validatePassword(password)
+    if (passwordError) {
+      setError(passwordError)
+      return
+    }
+
     setLoading(true)
     try {
-      await register(name, email, password)
+      await register(name.trim(), email.trim(), password)
       navigate('/')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao cadastrar')
@@ -65,20 +90,14 @@ export function RegisterPage() {
               className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200"
             />
           </div>
-          <div>
-            <label htmlFor="password" className="mb-1 block text-sm font-medium text-slate-700">
-              Senha (mín. 8 caracteres)
-            </label>
-            <input
-              id="password"
-              type="password"
-              required
-              minLength={8}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200"
-            />
-          </div>
+          <PasswordInput
+            id="password"
+            label="Senha (mín. 8 caracteres)"
+            required
+            minLength={8}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
           {error && <p className="text-sm text-red-600">{error}</p>}
 

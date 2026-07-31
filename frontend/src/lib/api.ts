@@ -23,6 +23,12 @@ export function clearToken() {
 async function parseErrorMessage(response: Response, fallback: string): Promise<string> {
   try {
     const body = await response.json()
+    if (body.errors && typeof body.errors === 'object') {
+      const messages = Object.values(body.errors as Record<string, string>)
+      if (messages.length > 0) {
+        return messages.join(' ')
+      }
+    }
     return body.detail ?? body.title ?? fallback
   } catch {
     return response.statusText || fallback

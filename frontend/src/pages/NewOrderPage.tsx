@@ -1,6 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
+import { validateOrderForm } from '../lib/validation'
 import type { DeliveryAddress } from '../lib/types'
 
 interface ItemForm {
@@ -46,18 +47,32 @@ export function NewOrderPage() {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
     setError('')
+
+    const payload = {
+      customerName: customerName.trim(),
+      deliveryAddress: {
+        street: address.street.trim(),
+        number: address.number.trim(),
+        city: address.city.trim(),
+        zipCode: address.zipCode,
+      },
+      items: items.map((item) => ({
+        name: item.name.trim(),
+        quantity: Number(item.quantity),
+        unitPrice: Number(item.unitPrice),
+      })),
+    }
+
+    const validationError = validateOrderForm(payload)
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+
     setLoading(true)
 
     try {
-      const order = await api.createOrder({
-        customerName,
-        deliveryAddress: address,
-        items: items.map((item) => ({
-          name: item.name,
-          quantity: Number(item.quantity),
-          unitPrice: Number(item.unitPrice),
-        })),
-      })
+      const order = await api.createOrder(payload)
       navigate(`/orders/${order.id}`)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao criar pedido')
@@ -153,8 +168,8 @@ export function NewOrderPage() {
                   required
                   type="number"
                   min={1}
+                  max={999}
                   placeholder="Qtd"
-                  value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', Number(e.target.value))}
                   className="rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-red-500"
                 />

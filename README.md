@@ -2,6 +2,8 @@
 
 Sistema simplificado de rastreamento de pedidos de delivery, construído com **Spec Driven Development**.
 
+![Tela de login do Foody Delivery](docs/screenshots/login.png)
+
 ## Stack
 
 - **Back-end:** Java 21, Spring Boot 3.5.16, Spring Security (JWT), JPA, SQLite
