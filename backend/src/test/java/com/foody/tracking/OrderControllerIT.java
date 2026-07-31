@@ -63,7 +63,7 @@ class OrderControllerIT {
                                     "street": "Rua Teste",
                                     "number": "42",
                                     "city": "São Paulo",
-                                    "zipCode": "01000-000"
+                                    "zipCode": "01000000"
                                   },
                                   "items": [
                                     {"name": "Pizza", "quantity": 1, "unitPrice": 50.00}
@@ -162,7 +162,7 @@ class OrderControllerIT {
                                 {
                                   "customerName": "Cliente A",
                                   "deliveryAddress": {
-                                    "street": "Rua A", "number": "1", "city": "SP", "zipCode": "01000-000"
+                                    "street": "Rua A", "number": "1", "city": "SP", "zipCode": "01000000"
                                   },
                                   "items": [{"name": "Item A", "quantity": 1, "unitPrice": 10.00}]
                                 }

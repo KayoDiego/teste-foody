@@ -107,8 +107,14 @@ export function NewOrderPage() {
             <input
               required
               placeholder="CEP"
+              inputMode="numeric"
+              pattern="\d{8}"
+              maxLength={8}
+              title="CEP deve conter 8 números"
               value={address.zipCode}
-              onChange={(e) => setAddress({ ...address, zipCode: e.target.value })}
+              onChange={(e) =>
+                setAddress({ ...address, zipCode: e.target.value.replace(/\D/g, '').slice(0, 8) })
+              }
               className="rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-red-500"
             />
             <input

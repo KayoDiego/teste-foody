@@ -69,7 +69,7 @@ class OrderServiceTest {
     void shouldCreateOrderWithRecebidoStatus() {
         CreateOrderRequest request = new CreateOrderRequest(
                 "Cliente Teste",
-                new DeliveryAddressRequest("Rua A", "10", "São Paulo", "01000-000"),
+                new DeliveryAddressRequest("Rua A", "10", "São Paulo", "01000000"),
                 List.of(new OrderItemRequest("Pizza", 1, new BigDecimal("30.00")))
         );
 

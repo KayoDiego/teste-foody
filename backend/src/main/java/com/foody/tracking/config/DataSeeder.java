@@ -34,7 +34,7 @@ public class DataSeeder {
 
             Order order1 = new Order(
                     "João Santos",
-                    new DeliveryAddress("Rua das Flores", "123", "São Paulo", "01310-100"),
+                    new DeliveryAddress("Rua das Flores", "123", "São Paulo", "01310100"),
                     demoUser
             );
             order1.addItem(new OrderItem("Pizza Margherita", 2, new BigDecimal("45.90")));
@@ -43,7 +43,7 @@ public class DataSeeder {
 
             Order order2 = new Order(
                     "Ana Costa",
-                    new DeliveryAddress("Av. Paulista", "1000", "São Paulo", "01310-200"),
+                    new DeliveryAddress("Av. Paulista", "1000", "São Paulo", "01310200"),
                     demoUser
             );
             order2.addItem(new OrderItem("Hambúrguer Artesanal", 1, new BigDecimal("32.50")));
