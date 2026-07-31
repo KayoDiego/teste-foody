@@ -53,11 +53,19 @@ public class GlobalExceptionHandler {
         return problem;
     }
 
-    @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class})
-    public ProblemDetail handleBadCredentials(RuntimeException ex) {
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ProblemDetail handleUserNotFound(UsernameNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        problem.setTitle("Conta não encontrada");
+        problem.setDetail("Não encontramos uma conta com este e-mail. Verifique o endereço ou cadastre-se.");
+        return problem;
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ProblemDetail handleBadCredentials(BadCredentialsException ex) {
         ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
         problem.setTitle("Credenciais inválidas");
-        problem.setDetail("E-mail ou senha incorretos");
+        problem.setDetail("Senha incorreta. Tente novamente.");
         return problem;
     }
 }
